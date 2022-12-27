@@ -58,7 +58,7 @@ jobs:
           sudo docker pull ${{ secrets.DOCKERHUB_USER }}/api_yamdb:latest
           sudo docker-compose rm -s web
           touch .env
-          echo SECKRET_KEY=${{ secrets.SECKRET_KEY }} >> .env
+          echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
           echo DEBUG=${{ secrets.DEBUG }} >> .env
           echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
           echo DB_NAME=${{ secrets.DB_NAME }} >> .env
