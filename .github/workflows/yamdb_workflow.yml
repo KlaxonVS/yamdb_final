@@ -54,6 +54,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.PASSPHRASE }} 
         script: |
+          cd yamdb/
           sudo docker pull ${{ secrets.DOCKERHUB_USER }}/api_yamdb:latest
           sudo docker-compose rm -s web
           touch .env
