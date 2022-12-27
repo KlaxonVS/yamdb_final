@@ -7,7 +7,6 @@ from rest_framework import filters, permissions, status, viewsets
 from rest_framework.decorators import action, api_view
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import AccessToken
-
 from reviews.models import Category, Genre, Review, Title, User
 
 from .filters import TitlesFilter
@@ -29,7 +28,7 @@ def register_or_confirm_code(request):
     serializer = UserSignupSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     try:
-        user, created = User.objects.get_or_create(
+        user, _ = User.objects.get_or_create(
             email=serializer.validated_data.get('email'),
             username=serializer.validated_data.get('username'),
         )
