@@ -1,6 +1,6 @@
 ## Проект «api_YaMDb»
 ***
-[![api_YaMDb workflow](https://github.com/VorVorsky/yamdb_finals/actions/workflows/yamdb_workflow.yml/badge.svg)](https://github.com/VorVorsky/yamdb_finals/actions/workflows/yamdb_workflow.yml)<br/>
+[![api_yamdb workflow](https://github.com/VorVorsky/yamdb_finals/actions/workflows/yamdb_workflow.yml/badge.svg)](https://github.com/VorVorsky/yamdb_finals/actions/workflows/yamdb_workflow.yml)<br/>
 ***
 ### Технологии:
 ``[Django, djangorestframework, simplejwt]``
