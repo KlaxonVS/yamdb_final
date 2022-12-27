@@ -42,7 +42,7 @@ jobs:
         with:
           file: api_yamdb/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USER }}/api_yamdb:latest
+          tags: ${{ secrets.DOCKERHUB_USER }}/api_yamdb:v1.02
   deploy:
     runs-on: ubuntu-latest
     needs: build_and_push_to_docker_hub
@@ -56,7 +56,7 @@ jobs:
         passphrase: ${{ secrets.PASSPHRASE }} 
         script: |
           cd yamdb/
-          sudo docker pull ${{ secrets.DOCKERHUB_USER }}/api_yamdb:latest
+          sudo docker pull ${{ secrets.DOCKERHUB_USER }}/api_yamdb:v1.02
           sudo docker-compose rm -s web
           touch .env
           echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env

@@ -16,7 +16,7 @@ services:
 
   web:
     container_name: yamdb_web
-    image: vorvorsky/api_yamdb:latest
+    image: vorvorsky/api_yamdb:v1.02
     restart: always
     volumes:
       - static_value:/app/static/
