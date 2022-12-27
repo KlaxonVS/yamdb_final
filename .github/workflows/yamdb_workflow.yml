@@ -54,7 +54,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.PASSPHRASE }} 
         script: |
-          sudo docker pull ${{ secrets.DOCKERHUB_USER }}/infra:latest
+          sudo docker pull ${{ secrets.DOCKERHUB_USER }}/api_yamdb:latest
           sudo docker-compose rm -s web
           touch .env
           echo SECKRET_KEY=${{ secrets.SECKRET_KEY }} >> .env
