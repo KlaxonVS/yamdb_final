@@ -66,7 +66,7 @@ jobs:
         script: |
           cd yamdb/
           sudo docker pull ${{ secrets.DOCKERHUB_USER }}/api_yamdb:v1.02
-          sudo docker-compose rm -s web
+          sudo docker compose rm -s web
           touch .env
           echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
           echo DEBUG=${{ secrets.DEBUG }} >> .env
@@ -79,7 +79,7 @@ jobs:
           echo SQLITE=${{ secrets.SQLITE }} >> .env
           echo EMAIL=${{ secrets.EMAIL }} >> .env
           echo DOMAIN=${{ secrets.DOMAIN }} >> .env
-          sudo docker-compose up -d
+          sudo docker compose up -d
   
   send_message_master:
     runs-on: ubuntu-latest
