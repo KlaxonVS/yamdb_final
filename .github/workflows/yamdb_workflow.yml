@@ -69,6 +69,8 @@ jobs:
           sudo docker-compose rm -s web
           touch .env
           echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
+          echo ALLOWED_HOST=${{ secrets.ALLOWED_HOST }} >> .env
+          echo LOCAL=${{ secrets.LOCAL }} >> .env
           echo DEBUG=${{ secrets.DEBUG }} >> .env
           echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
           echo DB_NAME=${{ secrets.DB_NAME }} >> .env
