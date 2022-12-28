@@ -40,7 +40,7 @@ services:
       - certbot-etc:/etc/letsencrypt
     depends_on:
       - web
-  
+
   certbot:
     image: certbot/certbot
     container_name: certbot
@@ -49,6 +49,6 @@ services:
       - certbot-etc:/etc/letsencrypt
     depends_on:
       - nginx
-    command: certonly --webroot --webroot-path=/var/html/www --email ${EMAIL} --agree-tos --no-eff-email --staging -d ${DOMAIN}
+    command: certonly --force-renewal --webroot --webroot-path=/var/html/www --email ${EMAIL} --agree-tos --no-eff-ema>
     env_file:
       - ./.env
