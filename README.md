@@ -88,7 +88,7 @@ POST-запрос на специальный эндпоинт `api/v1/users/`<b
 
 ## Запуск проекта через Doker:
 
-1. Клонировать репозиторий: <br/>``git clone git@github.com:VorVorsky/infra_sp2.git``
+1. Клонировать репозиторий: <br/>``git clone git@github.com:VorVorsky/yamdb_final.git``
 2. Создать файл **.env**
 
 ### Образец .env файла -- секретные переменные для проекта расположить в папке<br/>

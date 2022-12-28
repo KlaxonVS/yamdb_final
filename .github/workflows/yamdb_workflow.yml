@@ -5,13 +5,16 @@ on: [push]
 jobs:
   tests:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
       with:
-        python-version: 3.7
+        python-version: ${{ matrix.python-version }}
 
     - name: Install dependencies
       run: | 
@@ -23,29 +26,35 @@ jobs:
       run: |
         python -m flake8
         pytest
+  
   build_and_push_to_docker_hub:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     needs: tests
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v2 
+        uses: actions/checkout@v3 
+      
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1 
+      
       - name: Login to Docker 
         uses: docker/login-action@v1 
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      
       - name: Push to Docker Hub
         uses: docker/build-push-action@v2 
         with:
-          file: api_yamdb/Dockerfile
+          file: api_yamdb/Dockerfile_git
           push: true
           tags: ${{ secrets.DOCKERHUB_USER }}/api_yamdb:v1.02
+  
   deploy:
     runs-on: ubuntu-latest
     needs: build_and_push_to_docker_hub
+    if: github.ref == 'refs/heads/master'
     steps:
     - name: executing remote ssh commands to deploy
       uses: appleboy/ssh-action@master
@@ -67,10 +76,15 @@ jobs:
           echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
           echo DB_HOST=${{ secrets.DB_HOST }} >> .env
           echo DB_PORT=${{ secrets.DB_PORT }} >> .env
+          echo SQLITE=${{ secrets.SQLITE }} >> .env
+          echo EMAIL=${{ secrets.EMAIL }} >> .env
+          echo DOMAIN=${{ secrets.DOMAIN }} >> .env
           sudo docker-compose up -d
-  send_message:
+  
+  send_message_master:
     runs-on: ubuntu-latest
     needs: deploy
+    if: ${{ github.ref == 'refs/heads/master' }}
     steps:
     - name: send message
       uses: appleboy/telegram-action@master
@@ -78,4 +92,16 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: ${{ github.workflow }} успешно выполнен!
+  
+  send_message_other:
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: ${{ github.ref != 'refs/heads/master' }}
+    steps:
+    - name: send message
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: ${{ github.workflow }} ветки ${GITHUB_REF} успешно выполнен!
   

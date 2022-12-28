@@ -11,7 +11,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', default='test')
 
 DEBUG = os.getenv('DEBUG', default=False)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', default=['*']).split('|')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -67,6 +67,11 @@ DATABASES = {
         'PASSWORD': os.getenv('POSTGRES_PASSWORD', default='test'),
         'HOST': os.getenv('DB_HOST', default='db'),
         'PORT': os.getenv('DB_PORT', default=5432)
+    }
+} if not os.getenv('SQLITE') else {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'yamdb',
     }
 }
 
