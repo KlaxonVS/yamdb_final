@@ -9,10 +9,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.getenv('SECRET_KEY', default='test')
 
-DEBUG = os.getenv('DEBUG', default=False)
+DEBUG = int(os.getenv('DEBUG', default=0))
 
 ALLOWED_HOSTS = (str(os.getenv('ALLOWED_HOSTS')).split('|')
-                 if not os.getenv('LOCAL') else ['*'])
+                 if not int(os.getenv('LOCAL')) else ['*'])
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -69,7 +69,7 @@ DATABASES = {
         'HOST': os.getenv('DB_HOST', default='db'),
         'PORT': os.getenv('DB_PORT', default=5432)
     }
-} if not os.getenv('SQLITE') else {
+} if not int(os.getenv('SQLITE')) else {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'yamdb',
