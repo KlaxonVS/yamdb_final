@@ -67,9 +67,10 @@ jobs:
           cd yamdb/
           sudo docker pull ${{ secrets.DOCKERHUB_USER }}/api_yamdb:v1.02
           sudo docker compose rm -s web
+          rm .env
           touch .env
           echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
-          echo ALLOWED_HOST=${{ secrets.ALLOWED_HOST }} >> .env
+          echo ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }} >> .env
           echo LOCAL=${{ secrets.LOCAL }} >> .env
           echo DEBUG=${{ secrets.DEBUG }} >> .env
           echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
