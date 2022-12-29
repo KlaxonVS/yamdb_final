@@ -102,18 +102,18 @@ POST-запрос на специальный эндпоинт `api/v1/users/`<b
 * DB_HOST (хост)
 * DB_PORT (порт)
 
-3. В консоли из папки `infra/` соберите контейнер: `docker-compose up -d --build`
+3. В консоли из папки `infra/` соберите контейнер: `sudo docker compose up -d --build`
 4. Выполнить миграции:
-   * `docker-compose exec web python manage.py makemigrations`
-   * `docker-compose exec web python manage.py migrate`
+   * `sudo docker compose exec web python manage.py makemigrations`
+   * `sudo docker compose exec web python manage.py migrate`
 5. Соберите статику:<br/>
-`docker-compose exec web python manage.py collectstatic --no-input`
+`sudo docker compose exec web python manage.py collectstatic --no-input`
 
 ### Если необходима выгрузка данных в БД из csv файлов:
-1. Выполнить выгрузку коммандой:<br/>`docker-compose exec web python manage.py load_data`
+1. Выполнить выгрузку коммандой:<br/>`sudo docker compose exec web python manage.py load_data`
 2. В PostgreSQL В связи с загрузкой собьются данные о последнем индексе, необходимо<br/>
-получить SQL команды для их обновления:<br/>`docker-compose exec web python manage.py sqlsequencereset reviews`
-3. Войти в оболочку psql: `docker-compose exec db psql -U postgres`
+получить SQL команды для их обновления:<br/>`sudo docker compose exec web python manage.py sqlsequencereset reviews`
+3. Войти в оболочку psql: `sudo docker compose exec db psql -U postgres`
 4. Выполните полученные SQL запросы:<br/>
 `BEGIN;`<br/>
 `SELECT setval(pg_get_serial_sequence('"reviews_user_groups"','id'), coalesce(max("id"), 1), max("id") IS NOT null) FROM "reviews_user_groups";`<br/>
@@ -128,7 +128,7 @@ POST-запрос на специальный эндпоинт `api/v1/users/`<b
 `COMMIT;`<br/>
 
 ### Создание суперпользователя:
-* Используйте команду: `docker-compose exec web python manage.py createsuperuser`
+* Используйте команду: `sudo docker compose exec web python manage.py createsuperuser`
 #### Если возникает ошибка:
 `Superuser creation skipped due to not running in a TTY.`<br/>
 `You can run manage.py createsuperuser in your project to create one manually.`<br/>
