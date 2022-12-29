@@ -2,6 +2,8 @@
 ***
 [![yamdb_workflow](https://github.com/VorVorsky/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)](https://github.com/VorVorsky/yamdb_final/actions/workflows/yamdb_workflow.yml)<br/>
 ***
+[Ссылка на API](https://vorvorsky.sytes.net/api/v1/)
+***
 ### Технологии:
 ``[Django, djangorestframework, simplejwt]``
 ### Соавторы:
@@ -94,6 +96,8 @@ POST-запрос на специальный эндпоинт `api/v1/users/`<b
 ### Образец .env файла -- секретные переменные для проекта расположить в папке<br/>
 ``infra/``:
 * SECRET_KEY (ключ Django-проекта)
+* ALLOWED_HOSTS (хосты разделённые "|")
+* LOCAL (для локального запуска на компьютере)
 * DEBUG (режим отладки)
 * DB_ENGINE (используемая база, по умолчанию django.db.backends.postgresql)
 * DB_NAME (имя базы)
@@ -101,6 +105,9 @@ POST-запрос на специальный эндпоинт `api/v1/users/`<b
 * POSTGRES_PASSWORD (пароль пользователя)
 * DB_HOST (хост)
 * DB_PORT (порт)
+* SQLITE (sqlite как бд)
+* EMAIL (для сертификации ssl)
+* DOMAIN (ваш домен)
 
 3. В консоли из папки `infra/` соберите контейнер: `sudo docker compose up -d --build`
 4. Выполнить миграции:
