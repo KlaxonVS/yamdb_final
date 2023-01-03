@@ -1,0 +1,4 @@
+run: 'echo "$SSH_KEY" > key'
+  shell: bash
+  env:
+  SSH_KEY: ${{secrets.SSH_KEY}}
