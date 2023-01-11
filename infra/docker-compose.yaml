@@ -49,6 +49,6 @@ services:
       - certbot-etc:/etc/letsencrypt
     depends_on:
       - nginx
-    command: certonly --webroot --webroot-path=/var/html/www --email ${EMAIL} --agre>
+    command: certonly --webroot --webroot-path=/var/html/www --email ${EMAIL} --agree-tos --no-eff-email --force-renewal -d ${DOMAIN}
     env_file:
       - ./.env
